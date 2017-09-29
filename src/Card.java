@@ -1,27 +1,27 @@
 import java.util.Comparator;
 
-public class Card implements Comparator{
+public class Card{
 	
 	private String Suit;
 	private int Rank;
 	
-	public Card() {
+	Card() {
 		
 	}
 	
-	private Card(int suitGiven, int rankGiven) {
+	Card(int suitGiven, int rankGiven) {
 		switch(suitGiven) {
         case 0 :
             Suit = "Clubs"; 
             break;
         case 1 :
-        	Suit = "Hearts";
+        	Suit = "Diamonds";
             break;
         case 2 :
-        	Suit = "Spades";
+        	Suit = "Hearts";
             break;
         case 3 :
-        	Suit = "Diamonds";
+        	Suit = "Spades";
             break;
         default :
         	Suit = "ERROR";
@@ -88,13 +88,13 @@ public class Card implements Comparator{
            Suit = "Clubs"; 
            break;
         case 1 :
-        	Suit = "Hearts";
+        	Suit = "Diamonds";
             break;
         case 2 :
-        	Suit = "Spades";
+        	Suit = "Hearts";
             break;
         case 3 :
-        	Suit = "Diamonds";
+        	Suit = "Spades";
             break;
         default :
         	Suit = "ERROR";
@@ -153,22 +153,59 @@ public class Card implements Comparator{
 		return Rank;
 	}
 	
-	private String name() {
-		return (Suit+ " of " + Rank);
-	}
-	
 	private int getSuitInt() {
-		return ;
+		if(Suit == "Clubs") {return 0;}else{
+			if(Suit == "Diamonds") {return 1;}else{
+				if(Suit == "Hearts") {return 2;}else{
+					if(Suit == "Spades") {return 3;}else {
+					return -1;	
+					}
+				}
+			}
+		}
 	}
 	
 	private String getRankString() {
-		return ;
+		switch(Rank) {
+		case 0 :
+            return "One";
+		case 1 :
+            return "Two";
+        case 2 :
+            return "Three";
+        case 3 :
+            return "Four";
+        case 4 :
+            return "Five";
+        case 5 :
+            return "Six";
+        case 6 :
+            return "Seven";
+        case 7 :
+            return "Eight";
+        case 8 :
+            return "Nine";
+        case 9 :
+            return "Ten";
+        case 10 :
+            return "Jack";
+        case 11 :
+            return "Queen";
+        case 12 :
+            return "King";
+        default :
+        	return " ";
+     }
+	}
+	
+	public String toString() {
+		return (Suit+ " of " + Rank);
 	}
 
-	@Override
+	/*@Override
 	public int compare(Object arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
+	}*/
 	
 }
