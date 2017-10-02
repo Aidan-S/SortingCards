@@ -168,7 +168,7 @@ public class Card{
 	private String getRankString() {
 		switch(Rank) {
 		case 0 :
-            return "One";
+            return "Ace";
 		case 1 :
             return "Two";
         case 2 :
@@ -199,13 +199,6 @@ public class Card{
 	}
 	
 	public String toString() {
-		return (Suit+ " of " + Rank);
+		return (getRankString() + " of " + Suit);
 	}
-
-	/*@Override
-	public int compare(Object arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		return 0;
-	}*/
-	
 }
