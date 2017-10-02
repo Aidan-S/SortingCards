@@ -6,7 +6,24 @@ public class Card{
 	private int Rank;
 	
 	Card() {
-		
+		int suit = (int)(Math.random() * 3);
+		switch(suit) {
+        case 0 :
+            Suit = "Clubs"; 
+            break;
+        case 1 :
+        	Suit = "Diamonds";
+            break;
+        case 2 :
+        	Suit = "Hearts";
+            break;
+        case 3 :
+        	Suit = "Spades";
+            break;
+        default :
+        	Suit = "ERROR";
+		}
+		Rank = (int)(Math.random() * 12);
 	}
 	
 	Card(int suitGiven, int rankGiven) {

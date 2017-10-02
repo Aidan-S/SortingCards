@@ -15,10 +15,33 @@ public class Deck {
 		}
 	}
 	
+	private Deck(Boolean sorted) {
+		cards = new Card[52];
+		int rank;
+		int suit;
+		for(int i = 0; i < cards.length; i++ ) {
+			suit= i/13;
+			rank = 12 - (i - (suit * 13));
+			cards[i] = new Card(suit, rank);
+		}
+		if(!sorted) {
+			int index;
+		    Card temp;
+		    Random random = new Random();
+		    for (int i = cards.length - 1; i > 0; i--)
+		    {
+		        index = random.nextInt(i + 1);
+		        temp = cards[index];
+		        cards[index] = cards[i];
+		        cards[i] = temp;
+		    }
+		}
+	}
+	
 	public String toString() {
 		String words = "";
-		for(int i = 0; i < cards.length; i++ ) {
-			words = words + cards[i].toString() + "\n";
+		for(int i = 0; i < cards.length; i+=4 ) {
+			words += String.format("%-18s %-18s %-18s %-18s\n", cards[i].toString(), cards[i + 1].toString(), cards[i + 2].toString(), cards[i + 3].toString());
 		}
 		return words;
 	}
@@ -48,20 +71,16 @@ public class Deck {
 		return true;
 	}
 	
+	private Deck[] Deal(int hands, int cardNum) {
+		Deck[] hand= new Deck[hands];
+		Card picked = this.cards[]
+		return hand;
+	}
+	
 	public static void main(String[] args) {
 		Deck myDeck = new Deck();
-		Deck second = new Deck();
-		if(equals(myDeck, second)) {
-			System.out.println("They're the same");
-		}else{
-			System.out.println("They're different");
-		}
-		myDeck.shuffle();
-		if(equals(myDeck, second)) {
-			System.out.println("They're the same");
-		}else{
-			System.out.println("They're different");
-		}
+		
+		
 		System.out.print(myDeck.toString());
 	}
 
