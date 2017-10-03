@@ -170,6 +170,17 @@ public class Card{
 		return Rank;
 	}
 	
+	boolean compareTo(Card b){
+		
+		if(getSuitInt() < b.getSuitInt()) {return true;}
+		if(getSuitInt() > b.getSuitInt()) {return false;}
+		if(Rank > b.getRank()) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	private int getSuitInt() {
 		if(Suit == "Clubs") {return 0;}else{
 			if(Suit == "Diamonds") {return 1;}else{

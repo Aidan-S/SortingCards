@@ -71,15 +71,41 @@ public class Deck {
 		return true;
 	}
 	
+	private void SelectionSort(){
+		
+		 for (int i = 0; i < cards.length - 1; i++)  
+	        {  
+	            int index = i;  
+	            for (int j = i + 1; j < cards.length; j++){  
+	                if (cards[j].compareTo(cards[index])){  
+	                    index = j;//searching for lowest index  
+	                }  
+	            }  
+	            Card smallerNumber = cards[index];   
+	            cards[index] = cards[i];  
+	            cards[i] = smallerNumber;  
+	        }  
+	}
+	
+	private void MergeSort(){
+		
+		
+	}
+	
 	private Deck[] Deal(int hands, int cardNum) {
 		Deck[] hand= new Deck[hands];
-		Card picked = this.cards[]
+		//Card picked = cards[];
 		return hand;
 	}
 	
 	public static void main(String[] args) {
 		Deck myDeck = new Deck();
 		
+		System.out.print(myDeck.toString());
+		
+		myDeck.shuffle();
+		
+		myDeck.SelectionSort();
 		
 		System.out.print(myDeck.toString());
 	}
