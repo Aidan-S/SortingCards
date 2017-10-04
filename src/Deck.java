@@ -86,17 +86,67 @@ public class Deck {
 	            cards[i] = smallerNumber;  
 	        }  
 	}
-	
-	private void MergeSort(){
-		
-		
-	}
-	
-	private Deck[] Deal(int hands, int cardNum) {
+
+	private void mergeSort(Card[] array) {
+        if (array.length > 1) {
+            // split array into two halves
+            Card[] left = leftHalf(array);
+            Card[] right = rightHalf(array);
+            
+            // recursively sort the two halves
+            mergeSort(left);
+            mergeSort(right);
+            
+            // merge the sorted halves into a sorted whole
+            merge(array, left, right);
+        }
+    }
+    
+    // Returns the first half of the given array.
+    private Card[] leftHalf(Card[] array) {
+        int size1 = array.length / 2;
+        Card[] left = new Card[size1];
+        for (int i = 0; i < size1; i++) {
+            left[i] = array[i];
+        }
+        return left;
+    }
+    
+    // Returns the second half of the given array.
+    private Card[] rightHalf(Card[] array) {
+        int size1 = array.length / 2;
+        int size2 = array.length - size1;
+        Card[] right = new Card[size2];
+        for (int i = 0; i < size2; i++) {
+            right[i] = array[i + size1];
+        }
+        return right;
+    }
+    
+    // Merges the given left and right arrays into the given 
+    // result array.  Second, working version.
+    // pre : result is empty; left/right are sorted
+    // post: result contains result of merging sorted lists;
+    private void merge(Card[] result, Card[] left, Card[] right) {
+        int i1 = 0;   // index into left array
+        int i2 = 0;   // index into right array
+        
+        for (int i = 0; i < result.length; i++) {
+            if (i2 >= right.length || (i1 < left.length && left[i1].compareTo(right[i2]))) {
+                result[i] = left[i1];    // take from left
+                i1++;
+            } else {
+                result[i] = right[i2];   // take from right
+                i2++;
+            }
+        }
+    }
+    
+	/*private Deck[] Deal(int hands, int cardNum) {
 		Deck[] hand= new Deck[hands];
 		//Card picked = cards[];
 		return hand;
-	}
+	}*/
 	
 	public static void main(String[] args) {
 		Deck myDeck = new Deck();
@@ -105,7 +155,7 @@ public class Deck {
 		
 		myDeck.shuffle();
 		
-		myDeck.SelectionSort();
+		myDeck.mergeSort(myDeck.cards);
 		
 		System.out.print(myDeck.toString());
 	}
