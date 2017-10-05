@@ -2,7 +2,7 @@ import java.util.Comparator;
 
 /**
  * 
- * @author Aidan
+ * @author Aidan : he did this code stuffs
  *
  */
 public class Card{
@@ -13,7 +13,8 @@ public class Card{
 	/**
 	 * 
 	 */
-	Card() {
+	public Card() {
+		//assign random values
 		int suit = (int)(Math.random() * 3);
 		switch(suit) {
         case 0 :
@@ -36,10 +37,11 @@ public class Card{
 	
 	/**
 	 * 
-	 * @param suitGiven
-	 * @param rankGiven
+	 * @param suitGiven int indicating the suit to be used
+	 * @param rankGiven int indicating the rank to be used
 	 */
-	Card(int suitGiven, int rankGiven) {
+	public Card(int suitGiven, int rankGiven) {
+		//use switches to set rank and suit
 		switch(suitGiven) {
         case 0 :
             Suit = "Clubs"; 
@@ -61,10 +63,11 @@ public class Card{
 	
 	/**
 	 * 
-	 * @param suitGiven
-	 * @param rankGiven
+	 * @param suitGiven string indicating the suit to be used
+	 * @param rankGiven string indicating the rank to be used
 	 */
 	private Card(String suitGiven, String rankGiven) {
+		//use switches to set rank and suit
 		Suit = suitGiven;
 		
 		switch(rankGiven) {
@@ -114,20 +117,22 @@ public class Card{
 	
 	/**
 	 * 
-	 * @param suitGiven
-	 * @param rankGiven
+	 * @param suitGiven String indicating the suit to be used
+	 * @param rankGiven int indicating the rank to be used
 	 */
 	private Card(String suitGiven, int rankGiven) {
-        Suit = suitGiven;
+		//set rank and suit
+		Suit = suitGiven;
 		Rank = rankGiven;
 	}
 	
 	/**
 	 * 
-	 * @param suitGiven
-	 * @param rankGiven
+	 * @param suitGiven int indicating the suit to be used
+	 * @param rankGiven suit indicating the rank to be used
 	 */
 	private Card(int suitGiven, String rankGiven) {
+		//use switches to set rank and suit
 		switch(suitGiven) {
         case 0 :
            Suit = "Clubs"; 
@@ -192,27 +197,29 @@ public class Card{
 	
 	/**
 	 * 
-	 * @return
+	 * @return the suit as a string
 	 */
 	private String getSuit() {
+		//get the suit string
 		return Suit;
 	}
 	
 	/**
 	 * 
-	 * @return
+	 * @return the rank as an int
 	 */
-	private int getRank() {
+	public int getRank() {
+		//get the rank int
 		return Rank;
 	}
 	
 	/**
 	 * 
-	 * @param b
-	 * @return
+	 * @param b the card that is being compared
+	 * @return whether the cards are the same
 	 */
-	boolean compareTo(Card b){
-		
+	public boolean compareTo(Card b){
+		//return true if the card is supposed to be higher in the deck
 		if(getSuitInt() < b.getSuitInt()) {return true;}
 		if(getSuitInt() > b.getSuitInt()) {return false;}
 		if(Rank > b.getRank()) {
@@ -224,9 +231,10 @@ public class Card{
 	
 	/**
 	 * 
-	 * @return
+	 * @return an int to indicate the cards suit
 	 */
 	private int getSuitInt() {
+		//return suit as int
 		if(Suit == "Clubs") {return 0;}else{
 			if(Suit == "Diamonds") {return 1;}else{
 				if(Suit == "Hearts") {return 2;}else{
@@ -240,9 +248,10 @@ public class Card{
 	
 	/**
 	 * 
-	 * @return
+	 * @return a string to indicate the cards rank
 	 */
 	private String getRankString() {
+		//return int as string
 		switch(Rank) {
 		case 0 :
             return "Ace";
@@ -279,6 +288,7 @@ public class Card{
 	 * 
 	 */
 	public String toString() {
+		//turn object into a string
 		return (getRankString() + " of " + Suit);
 	}
 }
