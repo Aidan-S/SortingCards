@@ -1,10 +1,18 @@
 import java.util.Comparator;
 
+/**
+ * 
+ * @author Aidan
+ *
+ */
 public class Card{
 	
 	private String Suit;
 	private int Rank;
 	
+	/**
+	 * 
+	 */
 	Card() {
 		int suit = (int)(Math.random() * 3);
 		switch(suit) {
@@ -26,6 +34,11 @@ public class Card{
 		Rank = (int)(Math.random() * 12);
 	}
 	
+	/**
+	 * 
+	 * @param suitGiven
+	 * @param rankGiven
+	 */
 	Card(int suitGiven, int rankGiven) {
 		switch(suitGiven) {
         case 0 :
@@ -46,6 +59,11 @@ public class Card{
 		Rank = rankGiven;
 	}
 	
+	/**
+	 * 
+	 * @param suitGiven
+	 * @param rankGiven
+	 */
 	private Card(String suitGiven, String rankGiven) {
 		Suit = suitGiven;
 		
@@ -93,12 +111,22 @@ public class Card{
         	Rank = -1;
      }
 	}
-
+	
+	/**
+	 * 
+	 * @param suitGiven
+	 * @param rankGiven
+	 */
 	private Card(String suitGiven, int rankGiven) {
         Suit = suitGiven;
 		Rank = rankGiven;
 	}
-
+	
+	/**
+	 * 
+	 * @param suitGiven
+	 * @param rankGiven
+	 */
 	private Card(int suitGiven, String rankGiven) {
 		switch(suitGiven) {
         case 0 :
@@ -162,14 +190,27 @@ public class Card{
      }
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private String getSuit() {
 		return Suit;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private int getRank() {
 		return Rank;
 	}
 	
+	/**
+	 * 
+	 * @param b
+	 * @return
+	 */
 	boolean compareTo(Card b){
 		
 		if(getSuitInt() < b.getSuitInt()) {return true;}
@@ -181,6 +222,10 @@ public class Card{
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private int getSuitInt() {
 		if(Suit == "Clubs") {return 0;}else{
 			if(Suit == "Diamonds") {return 1;}else{
@@ -193,6 +238,10 @@ public class Card{
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private String getRankString() {
 		switch(Rank) {
 		case 0 :
@@ -226,6 +275,9 @@ public class Card{
      }
 	}
 	
+	/**
+	 * 
+	 */
 	public String toString() {
 		return (getRankString() + " of " + Suit);
 	}
