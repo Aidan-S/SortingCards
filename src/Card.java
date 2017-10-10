@@ -16,22 +16,8 @@ public class Card{
 	public Card() {
 		//assign random values
 		int suit = (int)(Math.random() * 3);
-		switch(suit) {
-        case 0 :
-            Suit = "Clubs"; 
-            break;
-        case 1 :
-        	Suit = "Diamonds";
-            break;
-        case 2 :
-        	Suit = "Hearts";
-            break;
-        case 3 :
-        	Suit = "Spades";
-            break;
-        default :
-        	Suit = "ERROR";
-		}
+		Suit = numToSuit(suit);
+		
 		Rank = (int)(Math.random() * 12);
 	}
 	
@@ -42,22 +28,8 @@ public class Card{
 	 */
 	public Card(int suitGiven, int rankGiven) {
 		//use switches to set rank and suit
-		switch(suitGiven) {
-        case 0 :
-            Suit = "Clubs"; 
-            break;
-        case 1 :
-        	Suit = "Diamonds";
-            break;
-        case 2 :
-        	Suit = "Hearts";
-            break;
-        case 3 :
-        	Suit = "Spades";
-            break;
-        default :
-        	Suit = "ERROR";
-     }
+		Suit = numToSuit(suitGiven);
+     
 		Rank = rankGiven;
 	}
 	
@@ -70,49 +42,8 @@ public class Card{
 		//use switches to set rank and suit
 		Suit = suitGiven;
 		
-		switch(rankGiven) {
-        case "Ace" :
-            Rank = 0; 
-            break;
-        case "Two" :
-        	Rank = 1;
-            break;
-        case "Three" :
-        	Rank = 2;
-            break;
-        case "Four" :
-        	Rank = 3;
-            break;
-        case "Five" :
-        	Rank = 4; 
-            break;
-        case "Six" :
-        	Rank = 5;
-            break;
-        case "Seven" :
-        	Rank = 6;
-            break;
-        case "Eight" :
-        	Rank = 7;
-            break;
-        case "Nine" :
-        	Rank = 8; 
-            break;
-        case "Ten" :
-        	Rank = 9;
-            break;
-        case "Jack" :
-        	Rank = 10;
-            break;
-        case "Queen" :
-        	Rank = 11;
-            break;
-        case "King" :
-        	Rank = 12;
-            break;
-        default :
-        	Rank = -1;
-     }
+		Rank = stringToRank(rankGiven);
+     
 	}
 	
 	/**
@@ -133,66 +64,9 @@ public class Card{
 	 */
 	private Card(int suitGiven, String rankGiven) {
 		//use switches to set rank and suit
-		switch(suitGiven) {
-        case 0 :
-           Suit = "Clubs"; 
-           break;
-        case 1 :
-        	Suit = "Diamonds";
-            break;
-        case 2 :
-        	Suit = "Hearts";
-            break;
-        case 3 :
-        	Suit = "Spades";
-            break;
-        default :
-        	Suit = "ERROR";
-     }
-		
-		switch(rankGiven) {
-        case "Ace" :
-            Rank = 0; 
-            break;
-        case "Two" :
-        	Rank= 1;
-            break;
-        case "Three" :
-        	Rank = 2;
-            break;
-        case "Four" :
-        	Rank = 3;
-            break;
-        case "Five" :
-        	Rank = 4; 
-            break;
-        case "Six" :
-        	Rank = 5;
-             break;
-        case "Seven" :
-        	Rank = 6;
-             break;
-        case "Eight" :
-        	Rank = 7;
-             break;
-        case "Nine" :
-        	Rank = 8; 
-             break;
-        case "Ten" :
-        	Rank = 9;
-             break;
-        case "Jack" :
-        	Rank = 10;
-             break;
-        case "Queen" :
-        	Rank = 11;
-             break;
-        case "King" :
-        	Rank = 12;
-             break;
-        default :
-        	Rank = -1;
-     }
+		Suit = numToSuit(suitGiven);
+		Rank = stringToRank(rankGiven);
+	
 	}
 	
 	/**
@@ -235,15 +109,7 @@ public class Card{
 	 */
 	private int getSuitInt() {
 		//return suit as int
-		if(Suit == "Clubs") {return 0;}else{
-			if(Suit == "Diamonds") {return 1;}else{
-				if(Suit == "Hearts") {return 2;}else{
-					if(Suit == "Spades") {return 3;}else {
-					return -1;	
-					}
-				}
-			}
-		}
+		return stringToNum(Suit);
 	}
 	
 	/**
@@ -252,38 +118,107 @@ public class Card{
 	 */
 	private String getRankString() {
 		//return int as string
-		switch(Rank) {
-		case 0 :
-            return "Ace";
-		case 1 :
-            return "Two";
-        case 2 :
-            return "Three";
-        case 3 :
-            return "Four";
-        case 4 :
-            return "Five";
-        case 5 :
-            return "Six";
-        case 6 :
-            return "Seven";
-        case 7 :
-            return "Eight";
-        case 8 :
-            return "Nine";
-        case 9 :
-            return "Ten";
-        case 10 :
-            return "Jack";
-        case 11 :
-            return "Queen";
-        case 12 :
-            return "King";
+		return numToRank(Rank);
+     }
+	
+
+//----------------------------------------------------------------------------------------------------------------------------
+	private String numToRank(int Rank){
+		//return int as string
+				switch(Rank) {
+				case 0 :
+		            return "Ace";
+				case 1 :
+		            return "Two";
+		        case 2 :
+		            return "Three";
+		        case 3 :
+		            return "Four";
+		        case 4 :
+		            return "Five";
+		        case 5 :
+		            return "Six";
+		        case 6 :
+		            return "Seven";
+		        case 7 :
+		            return "Eight";
+		        case 8 :
+		            return "Nine";
+		        case 9 :
+		            return "Ten";
+		        case 10 :
+		            return "Jack";
+		        case 11 :
+		            return "Queen";
+		        case 12 :
+		            return "King";
+		        default :
+		        	return " ";
+				}
+	}
+	
+	private int stringToRank(String rankGiven) {
+		switch(rankGiven) {
+        case "Ace" :
+            return 0;
+        case "Two" :
+        	return 1;
+        case "Three" :
+        	return 2;
+        case "Four" :
+        	return 3;
+        case "Five" :
+        	return 4;
+        case "Six" :
+        	return 5;
+        case "Seven" :
+        	return 6;
+        case "Eight" :
+        	return 7;
+        case "Nine" :
+        	return 8;
+        case "Ten" :
+        	return 9;
+        case "Jack" :
+        	return 10;
+        case "Queen" :
+        	return 11;
+        case "King" :
+        	return 12;
         default :
-        	return " ";
+        	return -1;
      }
 	}
 	
+	private String numToSuit(int suitGiven) {
+		//use switches to set rank and suit
+				switch(suitGiven) {
+		        case 0 :
+		           return "Clubs"; 
+		        case 1 :
+		        	return "Diamonds";
+		        case 2 :
+		        	return "Hearts";
+		        case 3 :
+		        	return "Spades";
+		        default :
+		        	return "ERROR";
+				}
+	}
+	
+	private int stringToNum(String suitgiven) {
+		//return suit as int
+				if(suitgiven == "Clubs") {return 0;}else{
+					if(suitgiven == "Diamonds") {return 1;}else{
+						if(suitgiven == "Hearts") {return 2;}else{
+							if(suitgiven == "Spades") {return 3;}else {
+							return -1;	
+							}
+						}
+					}
+				}
+	}
+//--------------------------------------------------------------------------------------------------------------------------	
 	/**
 	 * 
 	 */

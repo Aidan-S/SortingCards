@@ -27,30 +27,31 @@ Eight of Spades    Seven of Spades    Six of Spades      Five of Spades
 Four of Spades     Three of Spades    Two of Spades      Ace of Spades     
 
 The 2 decks are the same
-Three of Clubs
-Ace of Clubs
-Six of Hearts
-Nine of Spades
+Eight of Hearts
+Eight of Clubs
+Jack of Hearts
+Two of Diamonds
 Jack of Diamonds
-Four of Spades
-
-
-
-Five of Diamonds
-Seven of Clubs
-Ace of Spades
-Queen of Hearts
-Ten of Spades
 Queen of Spades
 
 
 
-Jack of Clubs
-Three of Spades
-Two of Spades
+Nine of Spades
+Ten of Diamonds
+Seven of Diamonds
+Four of Spades
+King of Spades
+Ace of Hearts
+
+
+
+Queen of Hearts
+Nine of Diamonds
 Ace of Diamonds
-Four of Diamonds
-Four of Hearts
+Three of Clubs
+Seven of Spades
+Nine of Clubs
 
 
 
+Done

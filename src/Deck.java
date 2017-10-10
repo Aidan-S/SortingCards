@@ -17,22 +17,13 @@ public class Deck {
 	//keep track of top card
 	int top;
 	
-	public static final int deckNum = 52;
+	private static final int deckNum = 52;
 	
 	/**
 	 * 
 	 */
 	private Deck() {
-		//create array and fill it with cards
-		cards = new Card[deckNum];
-		int rank;
-		int suit;
-		for(int i = 0; i < cards.length; i++ ) {
-			//go 1 card at a time
-			suit= i/13;
-			rank = 12 - (i - (suit * 13));
-			cards[i] = new Card(suit, rank);
-		}
+		makeCards();
 		//keep track of top card
 		top = cards.length;
 	}
@@ -53,22 +44,25 @@ public class Deck {
 	 * @param sorted whether the cards are to be sorted
 	 */
 	private Deck(Boolean sorted) {
-		//create array and fill it with cards
-		cards = new Card[deckNum];
-		int rank;
-		int suit;
-		for(int i = 0; i < cards.length; i++ ) {
-			// 1 card at a time
-			suit= i/13;
-			rank = 12 - (i - (suit * 13));
-			cards[i] = new Card(suit, rank);
-		}
+		makeCards();
 		//shuffle if wanted
 		if(!sorted) {
 			shuffle();
 		}
 		//keep track of top card
 		top = cards.length;
+	}
+	
+	private void makeCards() {
+		cards = new Card[deckNum];
+		int rank;
+		int suit;
+		for(int i = 0; i < cards.length; i++ ) {
+			//go 1 card at a time
+			suit= i/13;
+			rank = 12 - (i - (suit * 13));
+			cards[i] = new Card(suit, rank);
+		}
 	}
 	
 	/**
@@ -326,6 +320,7 @@ public class Deck {
 			out.println(hands[i].toString());
 			out.println("\n");
 		}
+		out.println("Finished");
 		//close up printer
 		out.close();
 	}
