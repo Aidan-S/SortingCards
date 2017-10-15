@@ -7,18 +7,37 @@ import java.util.Comparator;
  */
 public class Card{
 	
-	private String Suit;
-	private int Rank;
+	private String suit;
+	private int rank;
+	
+	private static final String ace = "Ace";
+	private static final String two = "Two"; 
+	private static final String three = "Three"; 
+	private static final String four = "Four"; 
+	private static final String five = "Five"; 
+	private static final String six = "Six"; 
+	private static final String seven = "Seven"; 
+	private static final String eight = "Eight"; 
+	private static final String nine = "Nine"; 
+	private static final String ten = "Ten"; 
+	private static final String jack = "Jack";
+	private static final String queen = "Queen";
+	private static final String king = "King";
+	
+	private static final String spades = "Spades";
+	private static final String clubs = "Clubs";
+	private static final String diamonds = "Diamonds";
+	private static final String hearts = "Hearts";
 	
 	/**
 	 * 
 	 */
 	public Card() {
 		//assign random values
-		int suit = (int)(Math.random() * 3);
-		Suit = numToSuit(suit);
+		int rSuit = (int)(Math.random() * 3);
+		suit = numToSuit(rSuit);
 		
-		Rank = (int)(Math.random() * 12);
+		rank = (int)(Math.random() * 12);
 	}
 	
 	/**
@@ -28,9 +47,9 @@ public class Card{
 	 */
 	public Card(int suitGiven, int rankGiven) {
 		//use switches to set rank and suit
-		Suit = numToSuit(suitGiven);
+		suit = numToSuit(suitGiven);
      
-		Rank = rankGiven;
+		rank = rankGiven - 1;
 	}
 	
 	/**
@@ -38,11 +57,11 @@ public class Card{
 	 * @param suitGiven string indicating the suit to be used
 	 * @param rankGiven string indicating the rank to be used
 	 */
-	private Card(String suitGiven, String rankGiven) {
+	public Card(String suitGiven, String rankGiven) {
 		//use switches to set rank and suit
-		Suit = suitGiven;
+		suit = suitGiven;
 		
-		Rank = stringToRank(rankGiven);
+		rank = stringToRank(rankGiven);
      
 	}
 	
@@ -51,10 +70,10 @@ public class Card{
 	 * @param suitGiven String indicating the suit to be used
 	 * @param rankGiven int indicating the rank to be used
 	 */
-	private Card(String suitGiven, int rankGiven) {
+	public Card(String suitGiven, int rankGiven) {
 		//set rank and suit
-		Suit = suitGiven;
-		Rank = rankGiven;
+		suit = suitGiven;
+		rank = rankGiven - 1;
 	}
 	
 	/**
@@ -62,10 +81,10 @@ public class Card{
 	 * @param suitGiven int indicating the suit to be used
 	 * @param rankGiven suit indicating the rank to be used
 	 */
-	private Card(int suitGiven, String rankGiven) {
+	public Card(int suitGiven, String rankGiven) {
 		//use switches to set rank and suit
-		Suit = numToSuit(suitGiven);
-		Rank = stringToRank(rankGiven);
+		suit = numToSuit(suitGiven);
+		rank = stringToRank(rankGiven);
 	
 	}
 	
@@ -73,9 +92,9 @@ public class Card{
 	 * 
 	 * @return the suit as a string
 	 */
-	private String getSuit() {
+	public String getSuit() {
 		//get the suit string
-		return Suit;
+		return suit;
 	}
 	
 	/**
@@ -84,74 +103,59 @@ public class Card{
 	 */
 	public int getRank() {
 		//get the rank int
-		return Rank;
+		return rank;
 	}
 	
-	/**
-	 * 
-	 * @param b the card that is being compared
-	 * @return whether the cards are the same
-	 */
-	public boolean compareTo(Card b){
-		//return true if the card is supposed to be higher in the deck
-		if(getSuitInt() < b.getSuitInt()) {return true;}
-		if(getSuitInt() > b.getSuitInt()) {return false;}
-		if(Rank > b.getRank()) {
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
+
 	/**
 	 * 
 	 * @return an int to indicate the cards suit
 	 */
-	private int getSuitInt() {
+	public int getSuitInt() {
 		//return suit as int
-		return stringToNum(Suit);
+		return stringToNum(suit);
 	}
 	
 	/**
 	 * 
 	 * @return a string to indicate the cards rank
 	 */
-	private String getRankString() {
+	public String getRankString() {
 		//return int as string
-		return numToRank(Rank);
+		return numToRank(rank);
      }
 	
 
 //----------------------------------------------------------------------------------------------------------------------------
-	private String numToRank(int Rank){
+	private String numToRank(int rankGiven){
 		//return int as string
-				switch(Rank) {
+				switch(rankGiven) {
 				case 0 :
-		            return "Ace";
+		            return ace;
 				case 1 :
-		            return "Two";
+		            return two;
 		        case 2 :
-		            return "Three";
+		            return three;
 		        case 3 :
-		            return "Four";
+		            return four;
 		        case 4 :
-		            return "Five";
+		            return five;
 		        case 5 :
-		            return "Six";
+		            return six;
 		        case 6 :
-		            return "Seven";
+		            return seven;
 		        case 7 :
-		            return "Eight";
+		            return eight;
 		        case 8 :
-		            return "Nine";
+		            return nine;
 		        case 9 :
-		            return "Ten";
+		            return ten;
 		        case 10 :
-		            return "Jack";
+		            return jack;
 		        case 11 :
-		            return "Queen";
+		            return queen;
 		        case 12 :
-		            return "King";
+		            return king;
 		        default :
 		        	return " ";
 				}
@@ -159,31 +163,31 @@ public class Card{
 	
 	private int stringToRank(String rankGiven) {
 		switch(rankGiven) {
-        case "Ace" :
+        case ace :
             return 0;
-        case "Two" :
+        case two :
         	return 1;
-        case "Three" :
+        case three :
         	return 2;
-        case "Four" :
+        case four :
         	return 3;
-        case "Five" :
+        case five :
         	return 4;
-        case "Six" :
+        case six :
         	return 5;
-        case "Seven" :
+        case seven :
         	return 6;
-        case "Eight" :
+        case eight :
         	return 7;
-        case "Nine" :
+        case nine :
         	return 8;
-        case "Ten" :
+        case ten :
         	return 9;
-        case "Jack" :
+        case jack :
         	return 10;
-        case "Queen" :
+        case queen :
         	return 11;
-        case "King" :
+        case king :
         	return 12;
         default :
         	return -1;
@@ -194,13 +198,13 @@ public class Card{
 		//use switches to set rank and suit
 				switch(suitGiven) {
 		        case 0 :
-		           return "Clubs"; 
+		           return clubs; 
 		        case 1 :
-		        	return "Diamonds";
+		        	return diamonds;
 		        case 2 :
-		        	return "Hearts";
+		        	return hearts;
 		        case 3 :
-		        	return "Spades";
+		        	return spades;
 		        default :
 		        	return "ERROR";
 				}
@@ -208,10 +212,10 @@ public class Card{
 	
 	private int stringToNum(String suitgiven) {
 		//return suit as int
-				if(suitgiven == "Clubs") {return 0;}else{
-					if(suitgiven == "Diamonds") {return 1;}else{
-						if(suitgiven == "Hearts") {return 2;}else{
-							if(suitgiven == "Spades") {return 3;}else {
+				if(suitgiven == clubs) {return 0;}else{
+					if(suitgiven == diamonds) {return 1;}else{
+						if(suitgiven == hearts) {return 2;}else{
+							if(suitgiven == spades) {return 3;}else {
 							return -1;	
 							}
 						}
@@ -224,6 +228,18 @@ public class Card{
 	 */
 	public String toString() {
 		//turn object into a string
-		return (getRankString() + " of " + Suit);
+		return (getRankString() + " of " + suit);
 	}
+
+	public int compareTo(Card b) {
+		if(getSuitInt() < b.getSuitInt()) {return -1;}
+		if(getSuitInt() > b.getSuitInt()) {return 1;}
+		if(rank > b.getRank()) {
+			return -1;
+		}
+		if(rank < b.getRank()) {
+			return 1;
+		}
+		return 0;
+	}	
 }

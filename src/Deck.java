@@ -10,38 +10,53 @@ import java.util.Random;
  */
 public class Deck {
 	
-	//required fields 
+	 //required fields 
 	
 	//array of my cards
 	Card[] cards;
 	//keep track of top card
 	int top;
 	
+	Card[] temp;
+	
 	private static final int deckNum = 52;
 	
 	/**
 	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: fill array with cards in order
+	 * @param args:none 
+	 * @return: none
 	 */
 	private Deck() {
 		makeCards();
 		//keep track of top card
-		top = cards.length;
+		top();
 	}
 	
 	/**
 	 * 
-	 * @param given when a card array is given, I made it for picking cards
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: fill array will given array
+	 * @param args: Card array given
+	 * @return: none
 	 */
 	private Deck(Card[] given) {
 		//equate the arrays
 		cards = given;
 		//keep track of top card
-		top = cards.length;
+		top();
 	}
 	
 	/**
 	 * 
-	 * @param sorted whether the cards are to be sorted
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: fill an array and shuffle it if sorted is false
+	 * @param args: boolean sorted
+	 * @return: none
 	 */
 	private Deck(Boolean sorted) {
 		makeCards();
@@ -50,23 +65,39 @@ public class Deck {
 			shuffle();
 		}
 		//keep track of top card
-		top = cards.length;
+		top();
 	}
 	
+	/**
+	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: for the constructors, fill up array in order
+	 * @param args: rank- rank for card, suit- suit for card
+	 * @return: none
+	 */
 	private void makeCards() {
+		//create an array and fill it
 		cards = new Card[deckNum];
 		int rank;
 		int suit;
 		for(int i = 0; i < cards.length; i++ ) {
 			//go 1 card at a time
 			suit= i/13;
-			rank = 12 - (i - (suit * 13));
+			//multiply suit by i to get the section of cards to look at
+			//then subtract i and add 13 to get to rank
+			rank = 13 - (i - (suit * 13));
 			cards[i] = new Card(suit, rank);
 		}
 	}
 	
 	/**
 	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: String of cards in columns if there's 52 cards else just return all of them as string
+ 	 * @param args: words- all the cards as a string to be returned
+	 * @return: the string to be printed
 	 */
 	public String toString() {
 		//Convert object to string
@@ -88,6 +119,11 @@ public class Deck {
 	
 	/**
 	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: 
+	 * @param args: index- index of random card, temp- temporary random card
+	 * @return: none
 	 */
 	private void shuffle(){
 	    //randomly mix up cards
@@ -104,18 +140,21 @@ public class Deck {
 	
 	/**
 	 * 
-	 * @param d2 the second deck to be compared
-	 * @return whether they are the same
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: return whether or no the decks have the same cards
+	 * @param args: d2- the other deck to be compared
+	 * @return: boolean- if the decks are the same
 	 */
 	private boolean equals(Deck d2){
 		//serves as a comparator that I made before making a comparator
-		//compare lengths first so i can be safe to cheak line by line
+		//compare lengths first so i can be safe to check line by line
 		if(cards.length != d2.cards.length) {
 			return false;
 		}
 		for(int i = 0; i < cards.length; i++ ) {
 			//cheak line by line
-			if(cards[i].compareTo(d2.cards[i])) {
+			if(cards[i].compareTo(d2.cards[i]) == 0) {
 				return false;
 			}
 		}
@@ -124,6 +163,11 @@ public class Deck {
 	
 	/**
 	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: sort the cards by putting the smallest at the front and then shifting forward
+	 * @param args: index- keep track of a needed placehold
+	 * @return: none
 	 */
 	private void selectionSort(){
 		 //find the smallest card and then move to the front
@@ -131,7 +175,7 @@ public class Deck {
 	        int index = i;  
 	        for (int j = i + 1; j < cards.length; j++){  
 	            //find the smallest
-	            if (cards[j].compareTo(cards[index])){  
+	            if (cards[j].compareTo(cards[index]) == -1){  
 	                index = j; 
 	            }  
 	        }  
@@ -143,85 +187,94 @@ public class Deck {
 	
 	/**
 	 * 
-	 * @param array array to be merge sorted
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: sort the deck 
+	 * @param args: temp- temporary card array
+	 * @return: none
 	 */
-	private void mergeSort(Card[] array) {
-        if (array.length > 1) {
-            // split array into two halves
-            Card[] left = leftHalf(array);
-            Card[] right = rightHalf(array);
-            
-            // recursively sort the two halves
-            mergeSort(left);
-            mergeSort(right);
-            
-            // merge the sorted halves
-            merge(array, left, right);
-        }
-    }
+	public void mergeSort () {
+		int n = cards.length;
+		temp = new Card[n];
+		recurse(cards , 0, n - 1);
+	}
+	
 	/**
 	 * 
-	 * @param array the left half of the array as an array
-	 * @return left sorted
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: recursive helper method for mergeSort
+	 * @param args: 
+	 * @return: none
 	 */
-    private Card[] leftHalf(Card[] array) {
-        int size1 = array.length / 2;
-        //keep shrinking into smaller parts
-        Card[] left = new Card[size1];
-        for (int i = 0; i < size1; i++) {
-            left[i] = array[i];
-        }
-        return left;
-    }
-    
-    /**
-     * 
-     * @param array the right half of the array as an array
-     * @return right sorted
-     */
-    private Card[] rightHalf(Card[] array) {
-        int size1 = array.length / 2;
-        int size2 = array.length - size1;
-        //keep shrinking into smaller parts
-        Card[] right = new Card[size2];
-        for (int i = 0; i < size2; i++) {
-            right[i] = array[i + size1];
-        }
-        return right;
-    }
-    
-    /**
-     * 
-     * @param result takes in the 2 halfs
-     * @param left left half as an array
-     * @param right right half as an array
-     */
-    private void merge(Card[] result, Card[] left, Card[] right) {
-        //left index
-    	int i1 = 0;  
-        //right index
-    	int i2 = 0;  
-        
-    	//combine the 2 halfs
-        for (int i = 0; i < result.length; i++) {
-            if (i2 >= right.length || (i1 < left.length && left[i1].compareTo(right[i2]))) {
-                //take from left
-            	result[i] = left[i1];   
-                i1++;
-            }else{
-                //take from right
-            	result[i] = right[i2];  
-                i2++;
-            }
-        }
-    }
-    
-    /**
-     * 
-     * @param hands number of hands to be dealt
-     * @param cardNum number of cards in a single hand
-     * @return array of Decks to be the different hands
-     */
+	private void recurse (Card[] deck, int from, int to) {	
+		if (to - from < 2) {
+			if (to > from && deck[to].compareTo(deck[from]) == -1) {
+				Card cardTemp = deck[to];
+				deck[to] = deck[from];
+				deck[from] = cardTemp;
+			}		
+		}else{
+			int middle = (from + to) / 2;
+			recurse(deck, from, middle);
+			recurse(deck, middle + 1, to);
+			merge(deck, from, middle, to);
+		}
+	}
+	
+	/**
+	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: merging helper method for mergeSort
+	 * @param args: 
+	 * @return: none
+	 */
+	private void merge (Card[] deck, int from, int middle, int to) {
+		int i = from;
+		int j = middle + 1;
+		int k = from;
+		
+		while (i <= middle && j <=to) {
+			if ((deck[i].compareTo(deck[j]) == -1)) {
+				temp[k] = deck[i];
+				i++;
+			}else{
+				temp[k] = deck[j];
+				j++;
+			}
+			k++;		
+		}
+		
+		while (i <= middle && k != deckNum) {
+			temp[k] = deck[i];
+			i++;
+			k++;
+		}
+		
+		while (j <= to && k != deckNum) {
+			temp[k] = deck[j];
+			j++;
+			k++;
+		}
+		
+		for (k = from; k <= to; k++) {
+			deck[k] = temp[k];
+		}
+		
+		this.cards = deck;
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: 
+	 * @param args: 
+	 * @return: 
+	 */
 	private Deck[] deal(int hands, int cardNum) {
 		//make sure its possible
 		if(hands * cardNum > cards.length) {
@@ -242,39 +295,40 @@ public class Deck {
 	
 	/**
 	 * 
-	 * @return card that was removed from the deck
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: 
+	 * @param args: 
+	 * @return: 
 	 */
     private Card pick() {
-    	//make array to replace cards
-    	Card[] newCards = new Card[cards.length-1];
-    	int t = (int)(Math.random() * (cards.length));
+    	int t = (int)(Math.random() * (cards.length - 1));
     	Card taken = cards[t];
     	cards[t] = null;
     	//make a card to hold picked card
     	boolean s = true;
     	for(int i = 0; i < cards.length; i++) {
-    		//remake array without the selection/null
-    		if(cards[i] != null) {
-    			if(s) {
-    				newCards[i] = cards[i];
+    		if(cards[i] == null) {
+    			if(i - 1 == cards.length) {
+    				cards[i] = null;
     			}else {
-    				newCards[i-1] = cards[i];
+    				cards[i] = cards[i + 1];
     			}
-    		}else {
-    			s = false;
     		}
     	}
-    	cards = newCards;
     	//keep track of top card
-    	top = cards.length;
+    	top();
     	return taken;
     }
     
     /**
-     * 
-     * @param fName file to be used as a print writer
-     * @return printwriter
-     */
+	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: 
+	 * @param args: 
+	 * @return: 
+	 */
     private static PrintWriter outputFile(String fName) {
     	//make a printwriter with the given file but if there's an issue return null instead	
     	File fileName = new File(fName);
@@ -289,15 +343,36 @@ public class Deck {
 	}
     
     /**
-     * 
-     * @param args test my stuffs
-     */
+	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: 
+	 * @param args: 
+	 * @return: 
+	 */
+    private void top() {
+    	for(int i = cards.length - 1; i >= 0; i++) {
+    		if(cards[i] != null) {
+    			top = i;
+    			break;
+    		}
+    	}
+    }
+    
+    /**
+	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @ method: 
+	 * @param args: 
+	 * @return: 
+	 */
 	public static void main(String[] args) {
 		PrintWriter out = outputFile("output.txt");
 		//new shuffled deck
-		Deck myDeck = new Deck(false);
+		Deck myDeck = new Deck(true);
 		//sort it
-		myDeck.mergeSort(myDeck.cards);
+		myDeck.mergeSort();
 		//print it
 		out.println(myDeck.toString());
 		//shuffle again
