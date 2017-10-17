@@ -5,7 +5,8 @@ import java.util.Random;
 
 /**
  * 
- * @author Aidan
+ * @author Aidan Scannell
+ * @date: October 15, 2017
  *
  */
 public class Deck {
@@ -17,19 +18,22 @@ public class Deck {
 	//keep track of top card
 	int top;
 	
+	//card array for merge sort
 	Card[] temp;
 	
+	//number of cards in a default deck
 	private static final int deckNum = 52;
 	
 	/**
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: fill array with cards in order
+	 * @method: fill array with cards in order
 	 * @param args:none 
 	 * @return: none
 	 */
 	private Deck() {
+		//set all the cards in Card[] cards
 		makeCards();
 		//keep track of top card
 		top();
@@ -39,7 +43,7 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: fill array will given array
+	 * @method: fill array will given array
 	 * @param args: Card array given
 	 * @return: none
 	 */
@@ -54,11 +58,12 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: fill an array and shuffle it if sorted is false
+	 * @method: fill an array and shuffle it if sorted is false
 	 * @param args: boolean sorted
 	 * @return: none
 	 */
 	private Deck(Boolean sorted) {
+		//set all the cards in Card[] cards
 		makeCards();
 		//shuffle if wanted
 		if(!sorted) {
@@ -72,7 +77,7 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: for the constructors, fill up array in order
+	 * @method: for the constructors, fill up array in order
 	 * @param args: rank- rank for card, suit- suit for card
 	 * @return: none
 	 */
@@ -86,32 +91,35 @@ public class Deck {
 			suit= i/13;
 			//multiply suit by i to get the section of cards to look at
 			//then subtract i and add 13 to get to rank
-			rank = 13 - (i - (suit * 13));
+			rank = (suit * 13) - i + 13;
 			cards[i] = new Card(suit, rank);
 		}
 	}
+	
 	
 	/**
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: String of cards in columns if there's 52 cards else just return all of them as string
+	 * @method: String of cards in columns if there's 52 cards else just return all of them as string
  	 * @param args: words- all the cards as a string to be returned
 	 * @return: the string to be printed
 	 */
 	public String toString() {
 		//Convert object to string
 		String words = "";
-		if(cards.length == deckNum) {
-			for(int i = 0; i < cards.length; i+=4 ) {
+		if(top + 1 == deckNum) {
+			for(int i = 0; i < deckNum; i+=4 ) {
 				//add the lines in columns 
 				words += String.format("%-18s %-18s %-18s %-18s\n", cards[i].toString(), cards[i + 1].toString(), cards[i + 2].toString(), cards[i + 3].toString());
 			}
 		}else{
-			for(int i = 0; i < cards.length; i++ ) {
+			for(int i = 0; i < top + 1; i++ ) {
 				//add 1 at a time if it isn't a perfect deck
-				words += cards[i].toString();
-				words += "\n";
+				if(cards[i] != null) {	
+					words += cards[i].toString();
+					words += "\n";
+				}
 			}
 		}
 		return words;
@@ -121,7 +129,7 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: 
+	 * @method: shuffle the order of the cards
 	 * @param args: index- index of random card, temp- temporary random card
 	 * @return: none
 	 */
@@ -130,8 +138,9 @@ public class Deck {
 		int index;
 	    Card temp;
 	    Random random = new Random();
-	    for (int i = cards.length - 1; i > 0; i--){
+	    for (int i = top - 1; i > 0; i--){
 	        index = random.nextInt(i + 1);
+	        //switch
 	        temp = cards[index];
 	        cards[index] = cards[i];
 	        cards[i] = temp;
@@ -142,38 +151,43 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: return whether or no the decks have the same cards
+	 * @method: return whether or no the decks have the same cards
 	 * @param args: d2- the other deck to be compared
 	 * @return: boolean- if the decks are the same
 	 */
-	private boolean equals(Deck d2){
+	private boolean equals(Deck second){
 		//serves as a comparator that I made before making a comparator
 		//compare lengths first so i can be safe to check line by line
-		if(cards.length != d2.cards.length) {
+		if(top != second.top) {
 			return false;
 		}
-		for(int i = 0; i < cards.length; i++ ) {
-			//cheak line by line
-			if(cards[i].compareTo(d2.cards[i]) == 0) {
+		
+		Deck d1 = new Deck(cards);
+		Deck d2 = new Deck(second.cards);
+		d1.selectionSort();
+		d2.selectionSort();
+		
+		for(int i = 0; i < d1.cards.length; i++) {
+			if(d1.cards[i].compareTo(d2.cards[i]) != 0) {
 				return false;
 			}
 		}
-		return true;
+		return true;	
 	}
 	
 	/**
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: sort the cards by putting the smallest at the front and then shifting forward
+	 * @method: sort the cards by putting the smallest at the front and then shifting forward
 	 * @param args: index- keep track of a needed placehold
 	 * @return: none
 	 */
 	private void selectionSort(){
 		 //find the smallest card and then move to the front
-		 for (int i = 0; i < cards.length - 1; i++){  
+		 for (int i = 0; i < top - 1; i++){  
 	        int index = i;  
-	        for (int j = i + 1; j < cards.length; j++){  
+	        for (int j = i + 1; j < top; j++){  
 	            //find the smallest
 	            if (cards[j].compareTo(cards[index]) == -1){  
 	                index = j; 
@@ -189,12 +203,12 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: sort the deck 
+	 * @method: sort the deck 
 	 * @param args: temp- temporary card array
 	 * @return: none
 	 */
 	public void mergeSort () {
-		int n = cards.length;
+		int n = top;
 		temp = new Card[n];
 		recurse(cards , 0, n - 1);
 	}
@@ -203,8 +217,8 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: recursive helper method for mergeSort
-	 * @param args: 
+	 * @method: recursive helper method for mergeSort
+	 * @param args: deck- the deck of cards, from/to- where I'm looking at
 	 * @return: none
 	 */
 	private void recurse (Card[] deck, int from, int to) {	
@@ -226,8 +240,8 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: merging helper method for mergeSort
-	 * @param args: 
+	 * @method: merging helper method for mergeSort
+	 * @param args: deck- the deck of cards, from/middle/to- what set of cards I'm looking at
 	 * @return: none
 	 */
 	private void merge (Card[] deck, int from, int middle, int to) {
@@ -246,13 +260,13 @@ public class Deck {
 			k++;		
 		}
 		
-		while (i <= middle && k != deckNum) {
+		while (i <= middle && k != top) {
 			temp[k] = deck[i];
 			i++;
 			k++;
 		}
 		
-		while (j <= to && k != deckNum) {
+		while (j <= to && k != top) {
 			temp[k] = deck[j];
 			j++;
 			k++;
@@ -271,25 +285,26 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: 
-	 * @param args: 
-	 * @return: 
+	 * @method: deal a certain number of hands of cards
+	 * @param args:  hands- num of hands, cardNum- number of cards in a hand, taken- array of cards taken, hand- array of decks/hands
+	 * @return: array of decks/hands
 	 */
 	private Deck[] deal(int hands, int cardNum) {
 		//make sure its possible
-		if(hands * cardNum > cards.length) {
+		if(hands * cardNum > top) {
 			return null;
 		}
 		Deck[] hand= new Deck[hands];
 		Card[] taken = new Card[cardNum];
-		//fill in each hand with random cards using pick method
-		for(int i = 0; i < hand.length; i++) {
+		//fill up each hand
+		for(int i = 0; i < hands; i++) {
 			for(int j = 0; j < cardNum; j++) {
-				taken[j] = pick();
+				taken[j] = takeTop();	
 			}
 			hand[i] = new Deck(taken);
 			taken = new Card[cardNum];
 		}
+		//return the hands
 		return hand;
 	}
 	
@@ -297,37 +312,67 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: 
-	 * @param args: 
-	 * @return: 
+	 * @method: take card off top and shift the array
+	 * @param args: r- card that was taken
+	 * @return: the card that was taken
+	 */
+	private Card takeTop(){
+		//make sure there are cards to take
+		if(top > 0){
+			Card r = cards[0];
+		
+			//take the top card and shift down
+			for(int i = 0; i < cards.length; i++) {
+				if(i + 1 < cards.length) {
+					cards[i] = cards[i + 1];
+				}else{
+					cards[i] = null;
+				}
+			}
+			top--;
+			return r;
+		}else{
+			return null;
+		}
+	}
+	
+	/**
+	 * 
+	 * @user: Aidan-S
+	 * @date: October 15, 2017
+	 * @method: pick a random card
+	 * @param args: taken- card removed
+	 * @return: the card that was selected
 	 */
     private Card pick() {
-    	int t = (int)(Math.random() * (cards.length - 1));
-    	Card taken = cards[t];
-    	cards[t] = null;
-    	//make a card to hold picked card
-    	boolean s = true;
-    	for(int i = 0; i < cards.length; i++) {
-    		if(cards[i] == null) {
-    			if(i - 1 == cards.length) {
-    				cards[i] = null;
-    			}else {
+		//make sure there are cards to take
+    	if(top > 0){	
+    		int t = (int)(Math.random() * (cards.length - 1));
+    		Card taken = cards[t];
+    		cards[t] = null;
+    		//take a random card and the fix the array
+    		for(int i = t; i < cards.length; i++) {
+    			if(i + 1 < cards.length) {
     				cards[i] = cards[i + 1];
+    			}else{
+    				cards[i] = null;
     			}
     		}
-    	}
-    	//keep track of top card
-    	top();
-    	return taken;
+    		//keep track of top card
+    		top();
+    		return taken;
+    	}else{
+    		return null;
+    	}	
     }
     
     /**
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: 
-	 * @param args: 
-	 * @return: 
+	 * @method: create a print writer
+	 * @param args: filename- name of file to be used, output- the print writer that is returned
+	 * @return: print writer
 	 */
     private static PrintWriter outputFile(String fName) {
     	//make a printwriter with the given file but if there's an issue return null instead	
@@ -346,15 +391,15 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: 
-	 * @param args: 
-	 * @return: 
+	 * @method: set top card value
+	 * @param args: top- top card
+	 * @return: none
 	 */
     private void top() {
-    	for(int i = cards.length - 1; i >= 0; i++) {
+    	//set top to the last non-null card's index
+    	for(int i = 0; i < cards.length; i++) {
     		if(cards[i] != null) {
     			top = i;
-    			break;
     		}
     	}
     }
@@ -363,14 +408,16 @@ public class Deck {
 	 * 
 	 * @user: Aidan-S
 	 * @date: October 15, 2017
-	 * @ method: 
-	 * @param args: 
-	 * @return: 
+	 * @method: Test all of my methods
+	 * @param args: myDeck- sample deck of cards, out- where I'm printing, second- second deck to compare to myDeck, hands- hands that are dealt
+	 * @return: none
 	 */
 	public static void main(String[] args) {
 		PrintWriter out = outputFile("output.txt");
 		//new shuffled deck
-		Deck myDeck = new Deck(true);
+		Deck myDeck = new Deck(false);
+		//print deck to show shuffled
+		out.println(myDeck.toString());
 		//sort it
 		myDeck.mergeSort();
 		//print it
@@ -382,7 +429,7 @@ public class Deck {
 		//print again
 		out.println(myDeck.toString());
 		//new deck to compare
-		Deck second = new Deck(true);
+		Deck second = new Deck();
 		//compare and print results
 		if(myDeck.equals(second)) {
 			out.println("The 2 decks are the same");
@@ -395,7 +442,16 @@ public class Deck {
 			out.println(hands[i].toString());
 			out.println("\n");
 		}
-		out.println("Finished");
+		//show effect of deal()
+		out.println(myDeck.toString());
+		
+		//show that the shuffles can deal with null values
+		myDeck.shuffle();
+		myDeck.mergeSort();
+		myDeck.shuffle();
+		myDeck.selectionSort();
+		out.println(myDeck.toString());
+		
 		//close up printer
 		out.close();
 	}

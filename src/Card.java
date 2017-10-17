@@ -2,8 +2,9 @@ import java.util.Comparator;
 
 /**
  * 
- * @author Aidan : he did this code stuffs
- *
+ * @author Aidan Scannell
+ * @date: October 15, 2017
+ * 
  */
 public class Card{
 	
@@ -126,41 +127,50 @@ public class Card{
      }
 	
 
-//----------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * 
+	 * @param rankGiven
+	 * @return
+	 */
 	private String numToRank(int rankGiven){
 		//return int as string
-				switch(rankGiven) {
-				case 0 :
-		            return ace;
-				case 1 :
-		            return two;
-		        case 2 :
-		            return three;
-		        case 3 :
-		            return four;
-		        case 4 :
-		            return five;
-		        case 5 :
-		            return six;
-		        case 6 :
-		            return seven;
-		        case 7 :
-		            return eight;
-		        case 8 :
-		            return nine;
-		        case 9 :
-		            return ten;
-		        case 10 :
-		            return jack;
-		        case 11 :
-		            return queen;
-		        case 12 :
-		            return king;
-		        default :
-		        	return " ";
-				}
+		switch(rankGiven) {
+		case 0 :
+            return ace;
+        case 1 :
+			return two;
+	    case 2 :
+	        return three;
+	    case 3 :
+		    return four;
+		case 4 :
+		    return five;
+		case 5 :
+		    return six;
+		case 6 :
+		    return seven;
+		case 7 :
+			return eight;
+        case 8 :
+        	return nine;
+		case 9 :
+	        return ten;
+        case 10 :
+		    return jack;
+		case 11 :
+	        return queen;
+        case 12 :
+        	return king;
+        default :
+        	return " ";
+		}
 	}
 	
+	/**
+	 * 
+	 * @param rankGiven
+	 * @return
+	 */
 	private int stringToRank(String rankGiven) {
 		switch(rankGiven) {
         case ace :
@@ -194,6 +204,11 @@ public class Card{
      }
 	}
 	
+	/**
+	 * 
+	 * @param suitGiven
+	 * @return
+	 */
 	private String numToSuit(int suitGiven) {
 		//use switches to set rank and suit
 				switch(suitGiven) {
@@ -210,6 +225,11 @@ public class Card{
 				}
 	}
 	
+	/**
+	 * 
+	 * @param suitgiven
+	 * @return an int to represent a suit
+	 */
 	private int stringToNum(String suitgiven) {
 		//return suit as int
 				if(suitgiven == clubs) {return 0;}else{
@@ -222,7 +242,7 @@ public class Card{
 					}
 				}
 	}
-//--------------------------------------------------------------------------------------------------------------------------	
+
 	/**
 	 * 
 	 */
@@ -231,6 +251,11 @@ public class Card{
 		return (getRankString() + " of " + suit);
 	}
 
+	/**
+	 * 
+	 * @param b- the other card to be compared
+	 * @return -1 if this.card is smaller, 1 if its bigger, or 0 if its the same as card b
+	 */
 	public int compareTo(Card b) {
 		if(getSuitInt() < b.getSuitInt()) {return -1;}
 		if(getSuitInt() > b.getSuitInt()) {return 1;}
